@@ -1,0 +1,477 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Effectuer un achat</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: whitesmoke;
+    font-family: Arial, sans-serif;
+    color: #222;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+
+  /* ── Champs client ── */
+  .client-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .client-fields input {
+    flex: 1 1 140px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    background: #fff;
+    font-size: 0.9rem;
+    outline: none;
+  }
+  .client-fields input:focus {
+    border-color: #aaa;
+  }
+
+  p.subtitle {
+    font-weight: bold;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+  }
+
+  /* ── Bloc catégorie ── */
+  .category-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+  .category-label {
+    font-family: Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: bold;
+    min-width: 120px;
+    padding-top: 8px;
+    flex-shrink: 0;
+  }
+
+  /* ── Grille articles ── */
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    flex: 1;
+  }
+
+  /* ── Carte article ── */
+  .card {
+    background: linear-gradient(to right, #fac9be, #ffddc3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 5px 2px 10px;
+  }
+  .card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+  }
+  .card-body {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .card-name {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .card-price {
+    color: #c0392b;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .card-body input[type="number"] {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ccc;
+    background: #fff;
+    font-size: 0.9rem;
+    outline: none;
+  }
+  .card-body input[type="number"]::placeholder {
+    color: #999;
+    font-style: normal;
+  }
+
+  /* ── Boutons ── */
+  .btn-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  button{
+    padding: 10px 28px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: bold;
+  }
+  button[type="submit"] {
+    background: #333;
+    color: #fff;
+  }
+  .quit{
+    padding: 10px 28px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: bold;
+    background: #361919;
+    color: #c0392b;
+    border: 1px solid #c0392b;
+  }
+
+  /* ── RESPONSIVITÉ ── */
+
+  /* Tablette : 2 colonnes */
+  @media (max-width: 900px) {
+    .articles-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Mobile : catégorie au-dessus, 1 colonne */
+  @media (max-width: 600px) {
+    .category-block {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .category-label {
+      font-size: 1.3rem;
+      min-width: unset;
+      padding-top: 0;
+    }
+    .articles-grid {
+      grid-template-columns: 1fr;
+    }
+    .card img {
+      height: 160px;
+    }
+    .client-fields input {
+      flex: 1 1 100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>Effectuer un achat</h1>
+
+<form action="resultat.php" method="POST">
+
+  <!-- Infos client -->
+  <div class="client-fields">
+    <input type="text"   name="nom"     placeholder="Nom" >
+    <input type="text"   name="prenom"  placeholder="Prenom" >
+    <input type="number" name="age"     placeholder="Age"     min="1" max="120">
+    <input type="text"   name="adresse" placeholder="Adresse">
+    <input type="text"   name="ville"   placeholder="Ville">
+  </div>
+  <div class="btn-row">
+    <button type="submit" name="action" value="valider">Valider</button>
+    <a href="bienvenu.html"><input type="button" value="Quitter" class="quit"></a>
+  </div>
+
+  <p class="subtitle">Veuillez choisir vos produits</p>
+
+  <!-- ══ CATÉGORIE : Cuisine ══ -->
+  <div class="category-block">
+    <div class="category-label">Cuisine</div>
+    <div class="articles-grid">
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&q=80" alt="Riz au poulet">
+        <div class="card-body">
+          <span class="card-name">Riz au poulet</span>
+          <span class="card-price">3000</span>
+          <input type="number" name="qte[011]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[011][design]" value="Riz au poulet">
+          <input type="hidden" name="articles[011][prix]"   value="3000">
+          <input type="hidden" name="articles[011][cat]"    value="Cuisine">
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80" alt="Pizza">
+        <div class="card-body">
+          <span class="card-name">Pizza</span>
+          <span class="card-price">5500</span>
+          <input type="number" name="qte[012]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[012][design]" value="Pizza">
+          <input type="hidden" name="articles[012][prix]"   value="5500">
+          <input type="hidden" name="articles[012][cat]"    value="Cuisine">
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=400&q=80" alt="Spaghetti">
+        <div class="card-body">
+          <span class="card-name">Spaghetti</span>
+          <span class="card-price">2000</span>
+          <input type="number" name="qte[013]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[013][design]" value="Spaghetti">
+          <input type="hidden" name="articles[013][prix]"   value="2000">
+          <input type="hidden" name="articles[013][cat]"    value="Cuisine">
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&q=80" alt="Salade composée">
+        <div class="card-body">
+          <span class="card-name">Salade composée</span>
+          <span class="card-price">1500</span>
+          <input type="number" name="qte[014]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[014][design]" value="Salade composée">
+          <input type="hidden" name="articles[014][prix]"   value="1500">
+          <input type="hidden" name="articles[014][cat]"    value="Cuisine">
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=400&q=80" alt="Poulet braisé">
+        <div class="card-body">
+          <span class="card-name">Poulet braisé</span>
+          <span class="card-price">4000</span>
+          <input type="number" name="qte[015]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[015][design]" value="Poulet braisé">
+          <input type="hidden" name="articles[015][prix]"   value="4000">
+          <input type="hidden" name="articles[015][cat]"    value="Cuisine">
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80" alt="Burger">
+        <div class="card-body">
+          <span class="card-name">Burger</span>
+          <span class="card-price">3500</span>
+          <input type="number" name="qte[016]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[016][design]" value="Burger">
+          <input type="hidden" name="articles[016][prix]"   value="3500">
+          <input type="hidden" name="articles[016][cat]"    value="Cuisine">
+        </div>
+      </div>
+
+    </div><!-- /.articles-grid -->
+  </div><!-- /.category-block -->
+
+
+  <!-- ══ CATÉGORIE : Vêtement ══ -->
+  <div class="category-block">
+    <div class="category-label">Vetement</div>
+    <div class="articles-grid">
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=400&q=80" alt="Robe fleurie">
+        <div class="card-body">
+          <span class="card-name">Robe fleurie</span>
+          <span class="card-price">8000</span>
+          <input type="number" name="qte[017]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[017][design]" value="Robe fleurie">
+          <input type="hidden" name="articles[017][prix]"   value="8000">
+          <input type="hidden" name="articles[017][cat]"    value="Vetement">
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&q=80" alt="T-shirt coton">
+        <div class="card-body">
+          <span class="card-name">T-shirt coton</span>
+          <span class="card-price">3000</span>
+          <input type="number" name="qte[018]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[018][design]" value="T-shirt coton">
+          <input type="hidden" name="articles[018][prix]"   value="3000">
+          <input type="hidden" name="articles[018][cat]"    value="Vetement">
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&q=80" alt="Jean slim">
+        <div class="card-body">
+          <span class="card-name">Jean slim</span>
+          <span class="card-price">12000</span>
+          <input type="number" name="qte[019]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[019][design]" value="Jean slim">
+          <input type="hidden" name="articles[019][prix]"   value="12000">
+          <input type="hidden" name="articles[019][cat]"    value="Vetement">
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=400&q=80" alt="Veste légère">
+        <div class="card-body">
+          <span class="card-name">Veste légère</span>
+          <span class="card-price">15000</span>
+          <input type="number" name="qte[0110]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[0110][design]" value="Veste légère">
+          <input type="hidden" name="articles[0110][prix]"   value="15000">
+          <input type="hidden" name="articles[0110][cat]"    value="Vetement">
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=400&q=80" alt="Chaussures sport">
+        <div class="card-body">
+          <span class="card-name">Chaussures sport</span>
+          <span class="card-price">18000</span>
+          <input type="number" name="qte[0111]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[0111][design]" value="Chaussures sport">
+          <input type="hidden" name="articles[0111][prix]"   value="18000">
+          <input type="hidden" name="articles[0111][cat]"    value="Vetement">
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=400&q=80" alt="Casquette">
+        <div class="card-body">
+          <span class="card-name">Casquette</span>
+          <span class="card-price">2500</span>
+          <input type="number" name="qte[0112]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[0112][design]" value="Casquette">
+          <input type="hidden" name="articles[0112][prix]"   value="2500">
+          <input type="hidden" name="articles[0112][cat]"    value="Vetement">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ══ CATÉGORIE : Beauté ══ -->
+  <div class="category-block">
+    <div class="category-label">Beauté</div>
+    <div class="articles-grid">
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80" alt="Rouge à lèvres">
+        <div class="card-body">
+          <span class="card-name">Rouge à lèvres</span>
+          <span class="card-price">2000</span>
+          <input type="number" name="qte[0113]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[0113][design]" value="Rouge à lèvres">
+          <input type="hidden" name="articles[0113][prix]"   value="2000">
+          <input type="hidden" name="articles[0113][cat]"    value="Beauté">
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&q=80" alt="Fond de teint">
+        <div class="card-body">
+          <span class="card-name">Fond de teint</span>
+          <span class="card-price">4500</span>
+          <input type="number" name="qte[0114]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[0114][design]" value="Fond de teint">
+          <input type="hidden" name="articles[0114][prix]"   value="4500">
+          <input type="hidden" name="articles[0114][cat]"    value="Beauté">
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=400&q=80" alt="Parfum">
+        <div class="card-body">
+          <span class="card-name">Parfum</span>
+          <span class="card-price">7000</span>
+          <input type="number" name="qte[0115]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[0115][design]" value="Parfum">
+          <input type="hidden" name="articles[0115][prix]"   value="7000">
+          <input type="hidden" name="articles[0115][cat]"    value="Beauté">
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&q=80" alt="Crème hydratante">
+        <div class="card-body">
+          <span class="card-name">Crème hydratante</span>
+          <span class="card-price">3500</span>
+          <input type="number" name="qte[0116]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[0116][design]" value="Crème hydratante">
+          <input type="hidden" name="articles[0116][prix]"   value="3500">
+          <input type="hidden" name="articles[0116][cat]"    value="Beauté">
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1526045612212-70caf35c14df?w=400&q=80" alt="Mascara">
+        <div class="card-body">
+          <span class="card-name">Mascara</span>
+          <span class="card-price">2800</span>
+          <input type="number" name="qte[0117]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[0117][design]" value="Mascara">
+          <input type="hidden" name="articles[0117][prix]"   value="2800">
+          <input type="hidden" name="articles[0117][cat]"    value="Beauté">
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=400&q=80" alt="Vernis à ongles">
+        <div class="card-body">
+          <span class="card-name">Vernis à ongles</span>
+          <span class="card-price">1200</span>
+          <input type="number" name="qte[0118]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[1018][design]" value="Vernis à ongles">
+          <input type="hidden" name="articles[0118][prix]"   value="1200">
+          <input type="hidden" name="articles[0118][cat]"    value="Beauté">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ══ CATÉGORIE : Électronique ══ -->
+  <div class="category-block">
+    <div class="category-label">Électronique</div>
+    <div class="articles-grid">
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&q=80" alt="Écouteurs">
+        <div class="card-body">
+          <span class="card-name">Écouteurs</span>
+          <span class="card-price">9000</span>
+          <input type="number" name="qte[0119]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[0119][design]" value="Écouteurs">
+          <input type="hidden" name="articles[0119][prix]"   value="9000">
+          <input type="hidden" name="articles[0119][cat]"    value="Électronique">
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&q=80" alt="Chargeur USB-C">
+        <div class="card-body">
+          <span class="card-name">Chargeur USB-C</span>
+          <span class="card-price">5000</span>
+          <input type="number" name="qte[20]" placeholder="quantite" min="0">
+          <input type="hidden" name="articles[0120][design]" value="Chargeur USB-C">
+          <input type="hidden" name="articles[0120][prix]"   value="5000">
+          <input type="hidden" name="articles[0120][cat]"    value="Électronique">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Boutons -->
+  
+</form>
+
+</body>
+</html>

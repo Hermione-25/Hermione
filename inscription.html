@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSCRIPTION</title>
+</head>
+<style>
+     body{
+            background:#f7e8dc ;
+            background-size: cover;
+            height: 100vh;
+            
+            
+        }
+        section{
+            background: linear-gradient(to right, #fac9be, #ffddc3);
+            display: grid;
+            width: 320px;
+            height:500px ;
+            border-radius: 25px;
+            margin: auto;
+            backdrop-filter: blur(50px);
+            padding: 30px;
+            border: 1px solid rgb(252, 227, 227);
+            box-shadow:  0 5px 20px rgba(0, 0, 0, 0.3);
+
+        }
+        .box{
+            
+            height: 5px;
+            width: 250px;
+            padding: 15px;
+            border: 2px solid rgb(242, 240, 241);
+
+        }
+        input:hover{
+            background-color: transparent;
+            color: black;
+            transition:0.5s ;
+            transform: scale(1.05) translateY(-5px); /* zoom + monte un peu */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3); /* ombre plus forte */
+        }
+        input{
+            margin-bottom: 10px;
+            border-radius: 10px;
+            
+        }
+        .con{
+            background-color: rgb(146, 222, 234);
+            border: solid rgb(145, 200, 246) ;
+            height: 40px;
+            width: 150px;
+            margin-left: 40%;
+            border-radius: 15px;
+            
+        }
+        .con:hover{
+            background-color: rgb(71, 200, 220);
+            color: white;
+        }
+
+      image{
+      width: 700px;
+      height: 580px;
+      
+    }
+    .pro{
+      width: 150px;
+      height: 130px;
+    }
+    a{
+      text-decoration: none;
+    }
+</style>
+<body>
+
+    <section>
+        <form action="INS.php" method="post">
+            <i class="fa-solid fa-circle-user"></i>
+            <center><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100" height="100" fill="currentColor">
+            <path d="M256 496c-54 0-103.9-17.9-144-48c0 0 0 0 0 0c0-61.9 50.1-112 112-112l64 0c61.9 0 112 50.1 112 112c0 0 0 0 0 0c5.3-4 10.4-8.2 15.4-12.6C409.1 370.6 354.5 320 288 320l-64 0c-66.5 0-121.1 50.6-127.4 115.4C47.2 391.5 16 327.4 16 256C16 123.5 123.5 16 256 16s240 107.5 240 240s-107.5 240-240 240zm0 16A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm80-304a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zm-80-64a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/>
+            </svg></center>
+            <center><h3>INSCRIPTION </h3>
+            <input type="number" name="id" class="box" placeholder="id_client" maxlength="4" required>
+            <input type="text" name="nom" class="box" placeholder="Nom"  maxlength="30" required>
+            <input type="text" name="pren" class="box" placeholder="Prénom" maxlength="30" required>
+            <input type="number" name="contact" class="box" placeholder="Contact" maxlength="8
+            " required>
+            <input type="text" name="logi" class="box" placeholder="Login" maxlength="4" required>
+            <input type="password" name="passe" class="box" placeholder="Password" maxlength="4" required>
+            </center>
+            <div class cnex>
+                <center><input type="submit" value="S'INSCRIT" class="con"></a>
+            </div>
+            </div></center>
+        </form>
+    </section>
+</body>
+</html>

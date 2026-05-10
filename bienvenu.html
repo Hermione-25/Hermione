@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvennu</title>
+</head>
+<style>
+
+
+    body{
+        background-color: white;
+        
+    }
+
+    img{
+        width: 5rem;
+    }
+
+    .haut{
+        display: flex;
+        justify-content: space-between;
+        gap: 10rem;
+        
+    }
+
+    .grille{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding-top: 6rem;
+        gap: 4rem;
+        padding-left: 1rem;
+        display:grid;
+        place-items:center;
+        height:10vh;
+        
+    }
+
+    a{
+        background: linear-gradient(to right, #fac9be, #ffddc3);
+        color: rgb(21, 20, 20);
+        padding-top: 2rem;
+        text-decoration: none;
+        border: 1px solid whitesmoke;
+        box-shadow: 2px 5px 10px rgb(151, 145, 145);
+        padding: 10px;
+        width: 15rem;
+        height: 3rem;
+
+        
+    }
+
+
+
+</style>
+<body>
+    <div class="haut"><img src="ENEAM.jpg " alt=""><h1 style="padding-top: 4px;">Bienvenue sur ma page</h1><img src="UAC.jpg" alt=""></div>
+
+    <div class="grille">
+        <a href="utilisateur.php" >Liste des utilisateurs</a>
+        <a href="base.php" >Liste des articles</a>
+        <a href="client.php" >Liste des clients</a>
+        <a href="vente.php" >Liste des ventes</a>
+        <a href="effectuer.html" style="background: rgb(237, 192, 151);">Effectuer une vente</a>
+    </div>
+</body>
+</html>
